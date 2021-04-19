@@ -31,10 +31,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Aoeng\\Laravel\\HuoBi\\HuobiServiceProvider"
+                "Aoeng\\Laravel\\Huobi\\HuobiServiceProvider"
             ],
             "aliases": {
-                "Tran": "Aoeng\\Laravel\\HuoBi\\Facades\\HuoBi"
+                "huobi": "Aoeng\\Laravel\\Huobi\\Facades\\Huobi"
             }
         }
     }

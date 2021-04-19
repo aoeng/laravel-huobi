@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Facade as LaravelFacade;
  * @method static array marketTickers()
  * @method static array marketDepth($symbol, $depth = 20, $type = 0)
  */
-class HuoBi extends LaravelFacade
+class Huobi extends LaravelFacade
 {
     protected static function getFacadeAccessor()
     {
