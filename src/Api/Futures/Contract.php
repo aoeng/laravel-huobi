@@ -3,10 +3,10 @@
  * @author lin <465382251@qq.com>
  * */
 
-namespace Aoeng\Laravel\HuoBi\Api\Futures;
+namespace Aoeng\Laravel\Huobi\Api\Futures;
 
 
-use Aoeng\Laravel\HuoBi\HuoBi;
+use Aoeng\Laravel\Huobi\Huobi;
 
 class Contract extends Huobi
 {

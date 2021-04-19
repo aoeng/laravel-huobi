@@ -3,10 +3,10 @@
  * @author lin <465382251@qq.com>
  * */
 
-namespace Aoeng\Laravel\HuoBi\Api\Swap;
+namespace Aoeng\Laravel\Huobi\Api\Swap;
 
 
-use Aoeng\Laravel\HuoBi\HuoBi;
+use Aoeng\Laravel\Huobi\Huobi;
 
 class Account extends Huobi
 {

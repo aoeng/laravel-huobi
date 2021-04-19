@@ -3,7 +3,7 @@
  * @author lin <465382251@qq.com>
  * */
 
-namespace Aoeng\Laravel\HuoBi\Api\WebSocket;
+namespace Aoeng\Laravel\Huobi\Api\WebSocket;
 
 use GlobalData\Server;
 use GlobalData\Client;

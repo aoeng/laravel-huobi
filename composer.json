@@ -25,13 +25,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Aoeng\\Laravel\\HuoBi\\": "./src/"
+            "Aoeng\\Laravel\\Huobi\\": "./src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Aoeng\\Laravel\\HuoBi\\HuoBiServiceProvider"
+                "HuobiServiceProvider"
             ],
             "aliases": {
                 "Tran": "Aoeng\\Laravel\\HuoBi\\Facades\\HuoBi"

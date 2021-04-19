@@ -5,7 +5,7 @@ namespace Aoeng\Laravel\Huobi;
 
 use Illuminate\Support\ServiceProvider;
 
-class HuoBiServiceProvider extends ServiceProvider
+class HuobiServiceProvider extends ServiceProvider
 {
     public function boot()
     {

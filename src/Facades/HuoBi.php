@@ -1,6 +1,6 @@
 <?php
 
-namespace Aoeng\Laravel\HuoBi\Facades;
+namespace Aoeng\Laravel\Huobi\Facades;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
 

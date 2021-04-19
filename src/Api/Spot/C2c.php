@@ -3,10 +3,10 @@
  * @author lin <465382251@qq.com>
  * */
 
-namespace Aoeng\Laravel\HuoBi\Api\Spot;
+namespace Aoeng\Laravel\Huobi\Api\Spot;
 
 
-use Aoeng\Laravel\HuoBi\HuoBi;
+use Aoeng\Laravel\Huobi\Huobi;
 
 class C2c extends Huobi
 {
