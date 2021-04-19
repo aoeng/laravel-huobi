@@ -1,0 +1,41 @@
+{
+    "name": "aoeng/laravel-huobi",
+    "type": "library",
+    "description": "Huobi API Like the official document interface, Support for arbitrary extension.",
+    "license": "MIT",
+    "keywords": [
+        "bitmex",
+        "binance",
+        "okex",
+        "huobi",
+        "kucoin",
+        "kumex"
+    ],
+    "authors": [
+        {
+            "name": "Dang",
+            "email": "859726077@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "laravel/framework": "^8.0.4",
+        "workerman/workerman": "*",
+        "workerman/globaldata": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aoeng\\Laravel\\HuoBi\\": "./src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aoeng\\Laravel\\HuoBi\\HuoBiServiceProvider"
+            ],
+            "aliases": {
+                "Tran": "Aoeng\\Laravel\\HuoBi\\Facades\\HuoBi"
+            }
+        }
+    }
+}
