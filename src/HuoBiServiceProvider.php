@@ -1,9 +1,8 @@
 <?php
 
-namespace Aoeng\Laravel\Tronscan;
+namespace Aoeng\Laravel\Huobi;
 
 
-use Aoeng\Laravel\Huobi\Huobi;
 use Illuminate\Support\ServiceProvider;
 
 class HuoBiServiceProvider extends ServiceProvider
