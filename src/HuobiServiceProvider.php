@@ -18,8 +18,14 @@ class HuobiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('huobi', function ($app) {
-            return new Huobi();
+            return new HuobiSpot();
         });
+
+        $this->app->singleton('huobiFuture', function ($app) {
+            return new HuobiFuture();
+        });
+
+
     }
 
 }

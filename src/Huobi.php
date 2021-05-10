@@ -37,9 +37,6 @@ class Huobi
     {
         $this->key = config('huobi.key', '');
         $this->secret = config('huobi.secret', '');
-        $this->host = config('huobi.host', 'https://api.huobi.pro');
-
-        $this->options = $data['options'] ?? [];
     }
 
     public function keySecret($key, $secret)
@@ -50,109 +47,9 @@ class Huobi
         return $this;
     }
 
-    // ===================基本数据==================
-    public function commonSymbols()
+    function setOptions(array $options = [])
     {
-        $this->type = 'GET';
-        $this->path = '/v1/common/symbols';
-        return $this->exec();
-    }
-
-    public function commonCurrencies()
-    {
-        $this->type = 'GET';
-        $this->path = '/v1/common/currencys';
-        return $this->exec();
-    }
-
-    // ====================账户数据===============
-    public function accounts()
-    {
-        $this->type = 'GET';
-        $this->path = '/v1/account/accounts';
-        return $this->exec();
-    }
-
-    public function accountBalance($accountId)
-    {
-        $this->type = 'GET';
-        $this->path = '/v1/account/accounts/' . $accountId . '/balance';
-        $this->data = ['account-id' => $accountId];
-        return $this->exec();
-    }
-
-    public function accountTransfer()
-    {
-        $this->type = 'POST';
-        $this->path = '/v1/account/transfer';
-        return $this->exec();
-    }
-
-    public function accountHistory()
-    {
-        $this->type = 'POST';
-        $this->path = '/v1/account/history';
-        return $this->exec();
-    }
-
-    //=======================行情数据==================
-    public function marketHistoryKline($symbol, $period, $size = 150)
-    {
-        $this->type = 'GET';
-        $this->path = '/market/history/kline';
-        $this->data = compact('symbol', 'period', 'size');
-        return $this->exec();
-    }
-
-    public function marketTickers()
-    {
-        $this->type = 'GET';
-        $this->path = '/market/tickers';
-        return $this->exec();
-    }
-
-    public function marketDepth($symbol, $depth = 20, $type = 0)
-    {
-        $this->type = 'GET';
-        $this->path = '/market/depth';
-
-        $type = 'step' . (string)$type;
-
-        $this->data = compact('symbol', 'depth', 'type');
-        return $this->exec();
-    }
-
-    //========================现货交易==================
-    public function orderPlace(array $data = [])
-    {
-        $this->type = 'POST';
-        $this->path = '/v1/order/orders/place';
-        $this->data = $data;
-        return $this->exec();
-    }
-
-    public function orderCancel($orderId)
-    {
-        $this->type = 'POST';
-        $this->path = '/v1/order/orders/' . $orderId . '/submitcancel';
-        $this->data = ['order-id' => $orderId];
-        return $this->exec();
-    }
-
-    public function orderSearch($orderId)
-    {
-        $this->type = 'GET';
-        $this->path = '/v1/order/orders/' . $orderId;
-        $this->data = ['order-id' => $orderId];
-        return $this->exec();
-    }
-
-    public function orderHistory(array $data = [])
-    {
-        $this->type = 'GET';
-        $this->path = '/v1/order/history';
-        $this->data = $data;
-        return $this->exec();
+        $this->options = $options;
     }
 
     /**
@@ -208,7 +105,9 @@ class Huobi
 
     /**
      * 根据huobi规则排序
-     * */
+     * @param $param
+     * @return array
+     */
     protected function sort($param)
     {
         $u = [];
@@ -281,35 +180,10 @@ class Huobi
 
         //可以记录日志
         try {
-            $temp = json_decode($this->send(), true);
-//            if (isset($temp['status']) && $temp['status'] == 'error') {
-//                $temp['_method'] = $this->type;
-//                $temp['_url'] = $this->host . $this->path;
-//                $temp['_httpcode'] = 200;
-//                throw new Exception(json_encode($temp));
-//            }
-
-            return $temp;
+            return json_decode($this->send(), true);
         } catch (RequestException $e) {
-            if (method_exists($e->getResponse(), 'getBody')) {
-                $contents = $e->getResponse()->getBody()->getContents();
-
-                $temp = empty($contents) ? [] : json_decode($contents, true);
-
-                if (!empty($temp)) {
-                    $temp['_method'] = $this->type;
-                    $temp['_url'] = $this->host . $this->path;
-                } else {
-                    $temp['_message'] = $e->getMessage();
-                }
-            } else {
-                $temp['_message'] = $e->getMessage();
-            }
-
-            $temp['_httpcode'] = $e->getCode();
-
-            //TODO  该流程可以记录各种日志
-            throw new Exception(json_encode($temp));
+            info('ERROR:', [$e->getMessage()]);
+            return ['status' => 'error', 'message' => $e->getMessage()];
         }
     }
 }

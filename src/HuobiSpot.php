@@ -1,143 +1,126 @@
 <?php
+
+
+namespace Aoeng\Laravel\Huobi;
+
+
 /**
- * @author lin <465382251@qq.com>
- * */
-
-namespace Lin\Huobi;
-
-use Lin\Huobi\Api\Spot\Subuser;
-use Lin\Huobi\Api\Spot\Order;
-use Lin\Huobi\Api\Spot\Market;
-use Lin\Huobi\Api\Spot\Margin;
-use Lin\Huobi\Api\Spot\Etf;
-use Lin\Huobi\Api\Spot\Common;
-use Lin\Huobi\Api\Spot\Account;
-use Lin\Huobi\Api\Spot\Wallet;
-use Lin\Huobi\Api\Spot\AlgoOrder;
-use Lin\Huobi\Api\Spot\C2c;
-use Lin\Huobi\Api\Spot\CrossMargin;
-
-class HuobiSpot
+ * @group 现货 HuobiSpot
+ * Class HuobiSpot
+ * @package Aoeng\Laravel\Huobi
+ */
+class HuobiSpot extends Huobi
 {
-    protected $key;
-    protected $secret;
-    protected $host;
 
-    protected $options = [];
-
-    function __construct(string $key = '', string $secret = '', string $host = 'https://api.huobi.pro')
+    public function __construct()
     {
-        $this->key = $key;
-        $this->secret = $secret;
-        $this->host = $host;
+        parent::__construct();
+
+        $this->host = config('huobi.host.spot', 'https://api.huobi.pro');
     }
 
-    /**
-     *
-     * */
-    private function init()
+    public function commonSymbols()
     {
-        return [
-            'key'     => $this->key,
-            'secret'  => $this->secret,
-            'host'    => $this->host,
-            'options' => $this->options,
-        ];
+        $this->type = 'GET';
+        $this->path = '/v1/common/symbols';
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    function setOptions(array $options = [])
+    public function commonCurrencies()
     {
-        $this->options = $options;
+        $this->type = 'GET';
+        $this->path = '/v1/common/currencys';
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function account()
+    // ====================账户数据===============
+    public function accounts()
     {
-        return new Account($this->init());
+        $this->type = 'GET';
+        $this->path = '/v1/account/accounts';
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function algoorder()
+    public function accountBalance($accountId)
     {
-        return new AlgoOrder($this->init());
+        $this->type = 'GET';
+        $this->path = '/v1/account/accounts/' . $accountId . '/balance';
+        $this->data = ['account-id' => $accountId];
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function c2c()
+    public function accountTransfer()
     {
-        return new C2c($this->init());
+        $this->type = 'POST';
+        $this->path = '/v1/account/transfer';
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function common()
+    public function accountHistory()
     {
-        return new Common($this->init());
+        $this->type = 'POST';
+        $this->path = '/v1/account/history';
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function crossmargin()
+    //=======================行情数据==================
+    public function marketHistoryKline($symbol, $period, $size = 150)
     {
-        return new CrossMargin($this->init());
+        $this->type = 'GET';
+        $this->path = '/market/history/kline';
+        $this->data = compact('symbol', 'period', 'size');
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function etf()
+    public function marketTickers()
     {
-        return new Etf($this->init());
+        $this->type = 'GET';
+        $this->path = '/market/tickers';
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function margin()
+    public function marketDepth($symbol, $depth = 20, $type = 0)
     {
-        return new Margin($this->init());
+        $this->type = 'GET';
+        $this->path = '/market/depth';
+
+        $type = 'step' . (string)$type;
+
+        $this->data = compact('symbol', 'depth', 'type');
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function market()
+    //========================现货交易==================
+    public function orderPlace(array $data = [])
     {
-        return new Market($this->init());
+        $this->type = 'POST';
+        $this->path = '/v1/order/orders/place';
+        $this->data = $data;
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function order()
+    public function orderCancel($orderId)
     {
-        return new Order($this->init());
+        $this->type = 'POST';
+        $this->path = '/v1/order/orders/' . $orderId . '/submitcancel';
+        $this->data = ['order-id' => $orderId];
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function subuser()
+    public function orderSearch($orderId)
     {
-        return new Subuser($this->init());
+        $this->type = 'GET';
+        $this->path = '/v1/order/orders/' . $orderId;
+        $this->data = ['order-id' => $orderId];
+        return $this->exec();
     }
 
-    /**
-     *
-     * */
-    public function wallet()
+    public function orderHistory(array $data = [])
     {
-        return new Wallet($this->init());
+        $this->type = 'GET';
+        $this->path = '/v1/order/history';
+        $this->data = $data;
+        return $this->exec();
     }
+
 }

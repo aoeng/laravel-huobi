@@ -3,5 +3,9 @@
 return [
     'key'    => env('HUOBI_KEY', ''),
     'secret' => env('HUOBI_SECRET', ''),
-    'host'   => env('HUOBI_SECRET', 'https://api.huobi.pro')
+
+    'host' => [
+        'spot'   => env('HUOBI_HOST_SPOT', 'https://api.huobi.pro'),
+        'future' => env('HUOBI_HOST_FUTURE', 'https://api.hbdm.com'),
+    ]
 ];
