@@ -18,6 +18,25 @@ class HuobiFuture extends Huobi
     }
 
 
+    public function accountInfo(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_account_info';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+
+    public function positionInfo(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_position_info';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
     public function accountPositionInfo(array $data = [])
     {
         $this->type = 'POST';
