@@ -18,6 +18,98 @@ class HuobiFuture extends Huobi
     }
 
 
+    public function accountPositionInfo(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_account_position_info';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+    public function orderPlace(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_order';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+
+    public function orderCancel(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_cancel';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+    public function orderSearch(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_order_info';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+    public function switchLeverRate(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_switch_lever_rate';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+    /**
+     * 未成交订单  openOrders
+     * @bodyParam page int required page
+     * @param array $data
+     * @return array|mixed
+     */
+    public function openOrders(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_openorders';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+    /**
+     * 历史委托订单  historyOrders
+     * @bodyParam page int required page
+     * @param array $data
+     * @return array|mixed
+     */
+    public function historyOrders(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_hisorders';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+    /**
+     * 成交记录  matchResults
+     * @bodyParam page int required page
+     * @param array $data
+     * @return array|mixed
+     */
+    public function matchResults(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_matchresults';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+
     public function contractInfo($contract_code = '', $support_margin_mode = false)
     {
         $this->type = 'GET';

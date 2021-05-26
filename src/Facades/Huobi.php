@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Facade as LaravelFacade;
 
 /**
  * @method static \Aoeng\Laravel\Huobi\Huobi  keySecret($key, $secret)
+ * @method static array accounts()
+ * @method static array accountBalance($accountId)
  * @method static array commonSymbols()
  * @method static array commonCurrencies()
  * @method static array marketHistoryKline($symbol, $period, $size = 150)
