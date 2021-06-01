@@ -18,31 +18,40 @@ class HuobiFuture extends Huobi
     }
 
 
-    public function accountInfo(array $data = [])
+    public function accountInfo($contract_code = null)
     {
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_account_info';
 
-        $this->data = $data;
+        $this->data = array_filter(compact('contract_code'));
         return $this->exec();
     }
 
 
-    public function positionInfo(array $data = [])
+    public function positionInfo($contract_code = null)
     {
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_position_info';
 
-        $this->data = $data;
+        $this->data = array_filter(compact('contract_code'));
         return $this->exec();
     }
 
-    public function accountPositionInfo(array $data = [])
+    public function accountPositionInfo($contract_code)
     {
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_account_position_info';
 
-        $this->data = $data;
+        $this->data = array_filter(compact('contract_code'));
+        return $this->exec();
+    }
+
+    public function availableLevelRate($contract_code = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_available_level_rate';
+
+        $this->data = array_filter(compact('contract_code'));
         return $this->exec();
     }
 
@@ -55,31 +64,40 @@ class HuobiFuture extends Huobi
         return $this->exec();
     }
 
+    public function tpsOrderPlace(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_tpsl_order';
 
-    public function orderCancel(array $data = [])
+        $this->data = $data;
+        return $this->exec();
+    }
+
+
+    public function orderCancel($contract_code, $order_id = 0, $client_order_id = 0)
     {
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_cancel';
 
-        $this->data = $data;
+        $this->data = array_filter(compact('contract_code', 'order_id', 'client_order_id'));
         return $this->exec();
     }
 
-    public function orderSearch(array $data = [])
+    public function orderSearch($contract_code, $order_id = 0, $client_order_id = 0)
     {
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_order_info';
 
-        $this->data = $data;
+        $this->data = array_filter(compact('contract_code', 'order_id', 'client_order_id'));
         return $this->exec();
     }
 
-    public function switchLeverRate(array $data = [])
+    public function switchLeverRate($contract_code, $lever_rate)
     {
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_switch_lever_rate';
 
-        $this->data = $data;
+        $this->data = compact('contract_code', 'lever_rate');
         return $this->exec();
     }
 
