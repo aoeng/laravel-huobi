@@ -73,6 +73,14 @@ class HuobiFuture extends Huobi
         return $this->exec();
     }
 
+    public function tpsOrderCancel($contract_code, $direction = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_tpsl_cancelall';
+
+        $this->data = array_filter(compact('contract_code', 'direction'));
+        return $this->exec();
+    }
 
     public function orderCancel($contract_code, $order_id = 0, $client_order_id = 0)
     {
