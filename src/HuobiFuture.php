@@ -55,19 +55,12 @@ class HuobiFuture extends Huobi
         return $this->exec();
     }
 
+//    合约订单
+
     public function orderPlace(array $data = [])
     {
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_order';
-
-        $this->data = $data;
-        return $this->exec();
-    }
-
-    public function tpslOrderPlace(array $data = [])
-    {
-        $this->type = 'POST';
-        $this->path = '/linear-swap-api/v1/swap_tpsl_order';
 
         $this->data = $data;
         return $this->exec();
@@ -92,39 +85,12 @@ class HuobiFuture extends Huobi
         return $this->exec();
     }
 
-    public function tpslOrderCancel($contract_code, $order_id)
-    {
-        $this->type = 'POST';
-        $this->path = '/linear-swap-api/v1/swap_tpsl_cancel';
-
-        $this->data = array_filter(compact('contract_code', 'order_id'));
-        return $this->exec();
-    }
-
-    public function tpslOrderCancelAll($contract_code, $direction = null)
-    {
-        $this->type = 'POST';
-        $this->path = '/linear-swap-api/v1/swap_tpsl_cancelall';
-
-        $this->data = array_filter(compact('contract_code', 'direction'));
-        return $this->exec();
-    }
-
     public function orderSearch($contract_code, $order_id = 0, $client_order_id = 0)
     {
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_order_info';
 
         $this->data = array_filter(compact('contract_code', 'order_id', 'client_order_id'));
-        return $this->exec();
-    }
-
-    public function switchLeverRate($contract_code, $lever_rate)
-    {
-        $this->type = 'POST';
-        $this->path = '/linear-swap-api/v1/swap_switch_lever_rate';
-
-        $this->data = compact('contract_code', 'lever_rate');
         return $this->exec();
     }
 
@@ -146,15 +112,22 @@ class HuobiFuture extends Huobi
     /**
      * 历史委托订单  historyOrders
      * @bodyParam page int required page
-     * @param array $data
+     * @param $contract_code
+     * @param int $trade_type
+     * @param int $type
+     * @param int $status
+     * @param int $create_date
+     * @param null $page_index
+     * @param null $page_size
+     * @param null $sort_by
      * @return array|mixed
      */
-    public function historyOrders(array $data = [])
+    public function historyOrders($contract_code, $trade_type = 0, $type = 1, $status = 0, $create_date = 90, $page_index = null, $page_size = null, $sort_by = null)
     {
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_hisorders';
 
-        $this->data = $data;
+        $this->data = array_filter(compact('contract_code', 'trade_type', 'type', 'status', 'create_date', 'page_index', 'page_size', 'sort_by'));
         return $this->exec();
     }
 
@@ -170,6 +143,102 @@ class HuobiFuture extends Huobi
         $this->path = '/linear-swap-api/v1/swap_matchresults';
 
         $this->data = $data;
+        return $this->exec();
+    }
+
+//  止盈止损订单
+    public function tpslOrderPlace(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_tpsl_order';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+
+    public function tpslOrderCancel($contract_code, $order_id)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_tpsl_cancel';
+
+        $this->data = array_filter(compact('contract_code', 'order_id'));
+        return $this->exec();
+    }
+
+    public function tpslOrderCancelAll($contract_code, $direction = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_tpsl_cancelall';
+
+        $this->data = array_filter(compact('contract_code', 'direction'));
+        return $this->exec();
+    }
+
+
+    public function tpslOrderSearch($contract_code, $order_id = 0)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_relation_tpsl_order';
+
+        $this->data = array_filter(compact('contract_code', 'order_id'));
+        return $this->exec();
+    }
+
+    public function historyTpslOrders($contract_code, $status = 0, $create_date = 90, $page_index = null, $page_size = null, $sort_by = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_tpsl_hisorders';
+
+        $this->data = array_filter(compact('contract_code', 'status', 'create_date', 'page_index', 'page_size', 'sort_by'));
+        return $this->exec();
+    }
+
+// 追踪委托
+    public function trackOrderPlace(array $data = [])
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_track_order';
+
+        $this->data = $data;
+        return $this->exec();
+    }
+
+
+    public function trackOrderCancel($contract_code, $order_id)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_track_cancel';
+
+        $this->data = array_filter(compact('contract_code', 'order_id'));
+        return $this->exec();
+    }
+
+    public function trackOrderCancelAll($contract_code, $direction = null, $offset = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_track_cancelall';
+
+        $this->data = array_filter(compact('contract_code', 'direction', 'offset'));
+        return $this->exec();
+    }
+
+
+    public function historyTrackOrders($contract_code, $status = 0, $trade_type = 0, $create_date = 90, $page_index = null, $page_size = null, $sort_by = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_track_hisorders';
+
+        $this->data = array_filter(compact('contract_code', 'status', 'trade_type', 'create_date', 'page_index', 'page_size', 'sort_by'));
+        return $this->exec();
+    }
+
+    public function switchLeverRate($contract_code, $lever_rate)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_switch_lever_rate';
+
+        $this->data = compact('contract_code', 'lever_rate');
         return $this->exec();
     }
 
