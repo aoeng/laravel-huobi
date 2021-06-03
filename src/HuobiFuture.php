@@ -64,21 +64,12 @@ class HuobiFuture extends Huobi
         return $this->exec();
     }
 
-    public function tpsOrderPlace(array $data = [])
+    public function tpslOrderPlace(array $data = [])
     {
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_tpsl_order';
 
         $this->data = $data;
-        return $this->exec();
-    }
-
-    public function tpsOrderCancel($contract_code, $direction = null)
-    {
-        $this->type = 'POST';
-        $this->path = '/linear-swap-api/v1/swap_tpsl_cancelall';
-
-        $this->data = array_filter(compact('contract_code', 'direction'));
         return $this->exec();
     }
 
@@ -88,6 +79,34 @@ class HuobiFuture extends Huobi
         $this->path = '/linear-swap-api/v1/swap_cancel';
 
         $this->data = array_filter(compact('contract_code', 'order_id', 'client_order_id'));
+        return $this->exec();
+    }
+
+
+    public function orderCancelAll($contract_code, $direction = null, $offset = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_cancelall';
+
+        $this->data = array_filter(compact('contract_code', 'direction', 'offset'));
+        return $this->exec();
+    }
+
+    public function tpslOrderCancel($contract_code, $order_id)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_tpsl_cancel';
+
+        $this->data = array_filter(compact('contract_code', 'order_id'));
+        return $this->exec();
+    }
+
+    public function tpslOrderCancelAll($contract_code, $direction = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_tpsl_cancelall';
+
+        $this->data = array_filter(compact('contract_code', 'direction'));
         return $this->exec();
     }
 

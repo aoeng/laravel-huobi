@@ -5,7 +5,7 @@ namespace Aoeng\Laravel\Huobi\Facades;
 use Illuminate\Support\Facades\Facade as LaravelFacade;
 
 /**
- * @method static \Aoeng\Laravel\Huobi\Huobi  keySecret($key, $secret)
+ * @method static \Aoeng\Laravel\Huobi\HuobiFuture  keySecret($key, $secret)
  * @method static array accountPositionInfo($contract_code)
  * @method static array positionInfo($contract_code = null)
  * @method static array accountInfo($contract_code = null)
