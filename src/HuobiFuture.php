@@ -127,7 +127,9 @@ class HuobiFuture extends Huobi
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_hisorders';
 
-        $this->data = array_filter(compact('contract_code', 'trade_type', 'type', 'status', 'create_date', 'page_index', 'page_size', 'sort_by'));
+        $this->data = array_merge(
+            compact('contract_code', 'trade_type', 'type', 'status', 'create_date'),
+            array_filter(compact('page_index', 'page_size', 'sort_by')));
         return $this->exec();
     }
 
@@ -190,7 +192,9 @@ class HuobiFuture extends Huobi
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_tpsl_hisorders';
 
-        $this->data = array_filter(compact('contract_code', 'status', 'create_date', 'page_index', 'page_size', 'sort_by'));
+        $this->data = array_merge(
+            compact('contract_code', 'status', 'create_date'),
+            array_filter(compact('page_index', 'page_size', 'sort_by')));
         return $this->exec();
     }
 
@@ -229,7 +233,11 @@ class HuobiFuture extends Huobi
         $this->type = 'POST';
         $this->path = '/linear-swap-api/v1/swap_track_hisorders';
 
-        $this->data = array_filter(compact('contract_code', 'status', 'trade_type', 'create_date', 'page_index', 'page_size', 'sort_by'));
+        $this->data =
+            array_merge(
+                compact('contract_code', 'status', 'trade_type', 'create_date'),
+                array_filter(compact('page_index', 'page_size', 'sort_by'))
+            );
         return $this->exec();
     }
 
