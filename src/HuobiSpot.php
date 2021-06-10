@@ -49,10 +49,19 @@ class HuobiSpot extends Huobi
         return $this->exec();
     }
 
-    public function accountTransfer()
+    public function accountTransfer($data = [])
     {
         $this->type = 'POST';
         $this->path = '/v1/account/transfer';
+        $this->data = $data;
+        return $this->exec();
+    }
+
+    public function transfer($margin_account, $amount, $from = 'spot', $to = 'linear-swap', $currency = 'USDT')
+    {
+        $this->type = 'POST';
+        $this->path = '/v2/account/transfer';
+        $this->data = array_merge(['margin-account' => $margin_account], compact('from', 'amount', 'to', 'currency'));
         return $this->exec();
     }
 

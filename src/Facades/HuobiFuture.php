@@ -6,7 +6,12 @@ use Illuminate\Support\Facades\Facade as LaravelFacade;
 
 /**
  * @method static \Aoeng\Laravel\Huobi\HuobiFuture  keySecret($key, $secret)
+ * @method static array state($contract_code = null)
  * @method static array accountPositionInfo($contract_code)
+ * @method static array parentAccountInfo($contract_code = null)
+ * @method static array parentTransfer($sub_uid, $from_margin_account, $to_margin_account, $amount, $type = 'master_to_sub', $asset = 'USDT', $client_order_id = null)
+ * @method static array innerTransfer($from_margin_account, $to_margin_account, $amount, $asset = 'USDT', $client_order_id = null)
+ * @method static array transfer($margin_account, $amount, $from = 'spot', $to = 'linear-swap', $currency = 'USDT')
  * @method static array positionInfo($contract_code = null)
  * @method static array accountInfo($contract_code = null)
  * @method static array availableLevelRate($contract_code = null)

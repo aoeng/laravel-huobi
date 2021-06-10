@@ -17,6 +17,42 @@ class HuobiFuture extends Huobi
         $this->host = config('huobi.host.future', 'https://api.hbdm.com');
     }
 
+    public function state($contract_code = null)
+    {
+        $this->type = 'GET';
+        $this->path = '/linear-swap-api/v1/swap_api_state';
+
+        $this->data = array_filter(compact('contract_code'));
+        return $this->exec();
+    }
+
+
+    public function parentAccountInfo($contract_code = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_sub_account_list';
+
+        $this->data = array_filter(compact('contract_code'));
+        return $this->exec();
+    }
+
+    public function parentTransfer($sub_uid, $from_margin_account, $to_margin_account, $amount, $type = 'master_to_sub', $asset = 'USDT', $client_order_id = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_master_sub_transfer';
+
+        $this->data = array_filter(compact('sub_uid', 'from_margin_account', 'to_margin_account', 'amount', 'type', 'asset', 'client_order_id'));
+        return $this->exec();
+    }
+
+    public function innerTransfer($from_margin_account, $to_margin_account, $amount, $asset = 'USDT', $client_order_id = null)
+    {
+        $this->type = 'POST';
+        $this->path = '/linear-swap-api/v1/swap_transfer_inner';
+
+        $this->data = array_filter(compact('from_margin_account', 'to_margin_account', 'amount', 'asset', 'client_order_id'));
+        return $this->exec();
+    }
 
     public function accountInfo($contract_code = null)
     {

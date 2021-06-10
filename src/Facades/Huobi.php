@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Facade as LaravelFacade;
  * @method static \Aoeng\Laravel\Huobi\HuobiSpot  keySecret($key, $secret)
  * @method static array accounts()
  * @method static array accountBalance($accountId)
+ * @method static array accountTransfer($data = [])
+ * @method static array transfer($margin_account, $amount, $from = 'spot', $to = 'linear-swap', $currency = 'USDT')
  * @method static array commonSymbols()
  * @method static array commonCurrencies()
  * @method static array marketHistoryKline($symbol, $period, $size = 150)
